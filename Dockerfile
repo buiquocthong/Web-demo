@@ -1,14 +1,13 @@
-# Use a lightweight base image
-FROM tomcat:11.0-jdk21-openjdk-slim
+# Use an official Tomcat runtime as the base image
+FROM tomcat:9.0
 
-# Remove the default Tomcat apps
-RUN rm -rf /usr/local/tomcat/webapps/ROOT
-RUN rm -rf /usr/local/tomcat/webapps/examples
+# Remove the default Tomcat applications (optional)
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Add your HelloWorld.war to the webapps directory
-ADD ROOT.war /usr/local/tomcat/webapps/
+# Copy your WAR file into the Tomcat webapps directory
+COPY ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expose port 8080
+# Expose the default Tomcat port
 EXPOSE 8080
 
 # Start Tomcat
